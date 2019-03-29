@@ -9,9 +9,24 @@ Processor processor;
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	//-------------------------------- Run -------------------------------
-	if (processor.ConnectDataBase())
+	if (argc < 2) {
+		LOGE << "Usage: " << argv[0] << " [TFEX = 1],[Stock = 2]";
 		return 1;
+	}
+	//-------------------------------- Run -------------------------------
+	if (processor.ConnectDataBase()) {
+		LOGE << "Fail connect database: ";
+		return 1;
+	}
 
-	processor.UpdateStatus();
+	switch (stoi(argv[1]))
+	{
+	case 1:
+		processor.UpdateStatus("acc_info");
+		break;
+	case 2:
+		processor.UpdateStatus("acc_info_stock");
+		break;
+	}
+
 }

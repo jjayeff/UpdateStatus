@@ -33,7 +33,6 @@ Processor::Processor() {
 	mt4ManagerPassword = config.getValueString("Application", "ManagerPassword");
 	db_driver = config.getValueString("Database", "Driver");
 	db_server = GetIpByName(config.getValueString("Database", "Server"));
-	db_database = config.getValueString("Database", "Database");
 	db_user = config.getValueString("Database", "Username");
 	db_password = config.getValueString("Database", "Password");
 	db_logname = config.getValueString("Database", "LogName");
@@ -82,7 +81,22 @@ int Processor::GetStutasDatabase(string db) {
 	{
 		Status tmp;
 		tmp.mt4_login_id = data.GetField("mt4_login_id");
-		tmp.acc_status = data.GetField("acc_status");
+		string status_symbol = data.GetField("acc_status");
+		if(status_symbol == "A")
+			tmp.acc_status = "Enable";
+		else if (status_symbol == "M")
+			tmp.acc_status = "Call Margin";
+		else if (status_symbol == "T")
+			tmp.acc_status = "Disable Trade";
+		else if (status_symbol == "F")
+			tmp.acc_status = "Call Force";
+		else if (status_symbol == "S")
+			tmp.acc_status = "Disable";
+		else if (status_symbol == "D")
+			tmp.acc_status = "Delete";
+		else if (status_symbol == "C")
+			tmp.acc_status = "Close Only";
+
 		status.push_back(tmp);
 	}
 	return 0;
@@ -177,11 +191,11 @@ int Processor::ConnectManager()
 //+------------------------------------------------------------------+
 //| Main Function                                                    |
 //+------------------------------------------------------------------+
-void Processor::UpdateStatus()
+void Processor::UpdateStatus(string db_database)
 {
 	try
 	{
-		// Get status from datebase
+		// Get status from datebase acc_info
 		if (GetStutasDatabase(db_database)) {
 			string log = "Connecting data fail";
 			LOGE << log;
@@ -224,7 +238,7 @@ void Processor::UpdateStatus()
 						return;
 					}
 					else {
-						LOGI << "OK Update List of Account ";
+						LOGI << "OK Update List of Account " + value.mt4_login_id;
 					}
 					break;
 				}
@@ -232,6 +246,9 @@ void Processor::UpdateStatus()
 		
 		// Clear memory
 		manager->MemFree(allAccount);
+		LOGD << status.size();
+		status.clear();
+		LOGD << status.size();
 
 
 		// Save log

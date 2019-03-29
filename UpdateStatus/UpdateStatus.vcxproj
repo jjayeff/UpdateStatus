@@ -124,7 +124,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>D:\ekkawitl\Project\API\databaseapi;D:\ekkawitl\Project\API\plog\include;D:\ekkawitl\Project\API\winconfig;D:\ekkawitl\Project\API\ManagerAPI\Examples;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\ekkawitl\Project\API\databaseapi;E:\ekkawitl\Project\API\plog\include;E:\ekkawitl\Project\API\winconfig;E:\ekkawitl\Project\API\ManagerAPI\Examples;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

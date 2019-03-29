@@ -24,7 +24,6 @@ private:
 	string				mt4ManagerPassword;
 	string				db_driver = "";
 	string				db_server = "";
-	string				db_database = "";
 	string				db_user = "";
 	string				db_password = "";
 	string				db_logname = "";
@@ -34,11 +33,11 @@ private:
 
 public:
 	int					ConnectDataBase();
-	void				UpdateStatus();
+	void				UpdateStatus(string db_database);
 
 private:
 	int					ConnectManager();
-	int				GetStutasDatabase(string db);
+	int					GetStutasDatabase(string db);
 	string				GetIpByName(string hostname);
 	int					InsertLogs(string app, int res, string comment, string db);
 
